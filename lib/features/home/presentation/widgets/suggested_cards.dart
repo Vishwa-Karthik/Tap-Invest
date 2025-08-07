@@ -43,11 +43,19 @@ class SuggestedResultsCard extends StatelessWidget {
               ),
               child: Column(
                 children: List.generate(
-                  companyList.length,
+                  companyList.length * 2 - 1,
                   (index) {
-                    final company = companyList[index];
+                    if (index.isOdd) {
+                      return Divider(
+                        color: Colors.grey.shade300,
+                      );
+                    }
+                    final actualIndex = index ~/ 2;
+
+                    final company = companyList[actualIndex];
 
                     return ListTile(
+                      dense: true,
                       contentPadding: const EdgeInsets.symmetric(vertical: 4),
                       onTap: () => onCompanyTap?.call(company),
                       leading: Container(
@@ -105,6 +113,7 @@ class SuggestedResultsCard extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),
