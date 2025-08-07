@@ -36,6 +36,7 @@ class SuggestedResultsCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Container(
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppTheme.kWhiteColor,
                 borderRadius: BorderRadius.circular(16),

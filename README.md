@@ -1,16 +1,21 @@
-# tap_invest
+# Tap Invest Assignment
 
-A new Flutter project.
+## Note to Evaluator
 
-## Getting Started
+- This project uses `HydratedBloc` instead of plain `flutter_bloc` for state persistence.
+- Due to limited time and smaller project scope, the Clean Architecture layers have been simplified.
+- **Entities** and **Use Cases** are skipped intentionally to reduce boilerplate and improve demo clarity.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
+<img src="assets/demo_1.png" width="400" height="900" alt="HomePage">
+<img src="assets/demo_2.png" width="400" height="900" alt="HomePage">
+<img src="assets/demo_3.png" width="400" height="900" alt="HomePage">
+<img src="assets/demo_4.png" width="400" height="900" alt="HomePage">
+<img src="assets/demo_5.png" width="400" height="900" alt="HomePage">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## References
+Figma Link - [Figma](https://www.figma.com/design/d9OgnsIY95YaUZw5XJbXyE/Flutter-2?node-id=0-1&p=f&t=CRx3plSXxaiUfi4J-0)
+
