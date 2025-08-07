@@ -36,9 +36,17 @@ class _CompanyFinancialChartState extends State<CompanyFinancialChart> {
   ];
 
   List<BarChartGroupData> _buildBarGroups(ChartViewSegment segment) {
-    return List.generate(_months.length, (index) {
-      final ebitdaValue = widget.ebitda[index].value ?? 0;
-      final revenueValue = widget.revenue[index].value ?? 0;
+    final maxLength = [
+      widget.ebitda.length,
+      widget.revenue.length,
+    ].reduce((a, b) => a < b ? a : b);
+
+    return List.generate(maxLength, (index) {
+      final ebitdaValue =
+          index < widget.ebitda.length ? (widget.ebitda[index].value ?? 0) : 0;
+      final revenueValue = index < widget.revenue.length
+          ? (widget.revenue[index].value ?? 0)
+          : 0;
 
       return BarChartGroupData(
         x: index,
