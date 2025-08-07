@@ -1,5 +1,7 @@
 # Tap Invest Assessment
 
+[Project Live - Demo](https://tap-invest-eta.vercel.app/)
+
 ## Note to Evaluator
 
 - This project uses `HydratedBloc` instead of plain `flutter_bloc` for state persistence.
