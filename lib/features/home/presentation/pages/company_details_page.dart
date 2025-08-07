@@ -66,7 +66,11 @@ class _CompanyDetailsPageState extends State<CompanyDetailsPage>
           builder: (context, state) {
             if (state.status == HomeStatus.initial ||
                 state.status == HomeStatus.loading) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(
+                  color: AppTheme.kBlackColor,
+                ),
+              );
             } else if (state.status == HomeStatus.error) {
               return Wrap(
                 direction: Axis.vertical,
@@ -109,7 +113,6 @@ class _CompanyDetailsPageState extends State<CompanyDetailsPage>
                             const Icon(Icons.error),
                       ),
                     ),
-
                     const SizedBox(height: 12),
                     Text(
                       state.companyDetails?.companyName ?? '-',

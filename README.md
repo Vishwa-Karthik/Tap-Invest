@@ -7,6 +7,8 @@
 - This project uses `HydratedBloc` instead of plain `flutter_bloc` for state persistence.
 - Due to limited time and smaller project scope, the Clean Architecture layers have been simplified.
 - **Entities** and **Use Cases** are skipped intentionally to reduce boilerplate and improve demo clarity.
+- **HomePage** uses `Slivers` for the cool and animated snappy effect.
+- Subsequent page uses normal component layout methodology.
 
 ---
 

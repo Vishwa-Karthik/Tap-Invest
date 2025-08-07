@@ -19,14 +19,14 @@ class SuggestedResultsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.sizeOf(context);
-    if (companyList.isEmpty) return const SizedBox();
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    if (companyList.isEmpty) return const SliverToBoxAdapter(child: SizedBox());
+
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      sliver: SliverList(
+        delegate: SliverChildListDelegate.fixed(
+          [
             Text(
               cardTitle ?? '',
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -41,67 +41,68 @@ class SuggestedResultsCard extends StatelessWidget {
                 color: AppTheme.kWhiteColor,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: companyList.length,
-                itemBuilder: (context, index) {
-                  final company = companyList[index];
+              child: Column(
+                children: List.generate(
+                  companyList.length,
+                  (index) {
+                    final company = companyList[index];
 
-                  return ListTile(
-                    onTap: () => onCompanyTap?.call(company),
-                    leading: Container(
-                      width: mediaQuery.width * 0.1,
-                      height: mediaQuery.width * 0.1,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.grey.shade200,
-                          width: 2,
-                        ),
-                      ),
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl: company.logo ?? '',
-                          width: mediaQuery.width * 0.09,
-                          height: mediaQuery.width * 0.09,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => SizedBox(
-                            width: mediaQuery.width * 0.1,
-                            height: mediaQuery.width * 0.1,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                    return ListTile(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                      onTap: () => onCompanyTap?.call(company),
+                      leading: Container(
+                        width: mediaQuery.width * 0.1,
+                        height: mediaQuery.width * 0.1,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.grey.shade200,
+                            width: 2,
                           ),
-                          errorWidget: (context, url, error) =>
-                              const CircleAvatar(
-                                radius: 21,
-                                backgroundColor: Colors.grey,
-                                child: Icon(
-                                  Icons.error,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                        ),
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: company.logo ?? '',
+                            width: mediaQuery.width * 0.09,
+                            height: mediaQuery.width * 0.09,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => SizedBox(
+                              width: mediaQuery.width * 0.1,
+                              height: mediaQuery.width * 0.1,
+                              child: const CircularProgressIndicator(
+                                  strokeWidth: 2),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                              radius: 21,
+                              backgroundColor: Colors.grey,
+                              child: Icon(
+                                Icons.error,
+                                size: 20,
+                                color: Colors.white,
                               ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      company.isin ?? '',
-                      style: theme.textTheme.bodyLarge,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-
-                    subtitle: Text(
-                      '${company.rating ?? ''}  •  ${company.companyName ?? ''}',
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
+                      title: Text(
+                        company.isin ?? '',
+                        style: theme.textTheme.bodyLarge,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      subtitle: Text(
+                        '${company.rating ?? ''}  •  ${company.companyName ?? ''}',
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                        color: Color(0xFF406AEB),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],
