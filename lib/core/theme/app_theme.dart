@@ -8,11 +8,11 @@ class AppTheme {
   static final Color kLightBlue = const Color(0xFF1447E6);
 
   static final ThemeData lightTheme = ThemeData(
-    
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
     scaffoldBackgroundColor: kScaffoldBackgroundColor,
     appBarTheme: AppBarTheme(
       backgroundColor: kScaffoldBackgroundColor,
+      centerTitle: false,
       titleTextStyle: TextStyle(
         color: kBlackColor,
         fontSize: 24,

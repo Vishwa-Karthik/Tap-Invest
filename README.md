@@ -8,6 +8,11 @@
 
 ---
 
+## Subtle Consideration / Future Enhacements
++ Strings / Themes / Constants based seperate Utility class to keep the code discrete.
++ onSearched UI Highlighter to showcase matched records
++ Chart / Graph UI Enhacements
+
 ## Screenshots
 <img src="assets/demo_1.png" width="400" height="900" alt="HomePage">
 <img src="assets/demo_2.png" width="400" height="900" alt="HomePage">

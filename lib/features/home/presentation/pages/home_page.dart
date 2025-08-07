@@ -1,10 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tap_invest/core/theme/app_theme.dart';
 import 'package:tap_invest/features/home/presentation/bloc/home_bloc.dart';
 import 'package:tap_invest/features/home/presentation/pages/company_details_page.dart';
 import 'package:tap_invest/features/home/presentation/widgets/suggested_cards.dart';
+import 'package:tap_invest/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       body: Column(
@@ -108,11 +108,20 @@ class _HomePageState extends State<HomePage> {
                         : 'SUGGESTED RESULTS',
                     companyList: state.companyList ?? [],
                     onCompanyTap: (company) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CompanyDetailsPage(),
-                        ),
-                      );
+                      if (kIsWeb) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                WrappedDeviceFrame(child: CompanyDetailsPage()),
+                          ),
+                        );
+                      } else {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CompanyDetailsPage(),
+                          ),
+                        );
+                      }
                     },
                   );
                 } else if (state.status == HomeStatus.error) {

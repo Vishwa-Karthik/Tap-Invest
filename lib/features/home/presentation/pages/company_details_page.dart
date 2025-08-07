@@ -27,6 +27,7 @@ class _CompanyDetailsPageState extends State<CompanyDetailsPage>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.sizeOf(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -87,15 +88,17 @@ class _CompanyDetailsPageState extends State<CompanyDetailsPage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 64,
-                      height: 64,
+                      height: size.height * 0.1,
+                      width: size.width * 0.22,
+                      padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
+                        color: Colors.white,
                         shape: BoxShape.rectangle,
-                        border: Border.all(
+                        borderRadius: BorderRadius.circular(18),
+                        border: BoxBorder.all(
                           color: Colors.grey.shade400,
                           width: 2,
                         ),
-                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: CachedNetworkImage(
                         imageUrl: state.companyDetails?.logo ?? '',
@@ -106,6 +109,7 @@ class _CompanyDetailsPageState extends State<CompanyDetailsPage>
                             const Icon(Icons.error),
                       ),
                     ),
+
                     const SizedBox(height: 12),
                     Text(
                       state.companyDetails?.companyName ?? '-',

@@ -34,7 +34,7 @@ class _ChartViewState extends State<ChartView> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
-                    fontSize: segment == ChartViewSegment.revenue ? 13 : 15,
+                    fontSize: segment == ChartViewSegment.revenue ? 12 : 14,
                   ),
                 ),
                 SegmentedButton(

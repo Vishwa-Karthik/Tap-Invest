@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_frame/device_frame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,16 +13,22 @@ import 'package:tap_invest/features/home/presentation/bloc/home_bloc.dart';
 import 'package:tap_invest/features/home/presentation/pages/home_page.dart';
 
 Future<void> main() async {
-  runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    initDependencies();
-    HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: kIsWeb
-          ? HydratedStorageDirectory.web
-          : HydratedStorageDirectory((await getTemporaryDirectory()).path),
-    );
-    runApp(const MyApp());
-  }, (_, __) {});
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      initDependencies();
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: kIsWeb
+            ? HydratedStorageDirectory.web
+            : HydratedStorageDirectory((await getTemporaryDirectory()).path),
+      );
+      runApp(const MyApp());
+    },
+    (e, st) {
+      debugPrint('Uncaught App Error: $e');
+      debugPrintStack(stackTrace: st);
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -39,8 +46,22 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Tap Invest',
         theme: AppTheme.lightTheme,
-        home: const HomePage(),
+        home: kIsWeb ? WrappedDeviceFrame(child: HomePage()) : const HomePage(),
       ),
+    );
+  }
+}
+
+class WrappedDeviceFrame extends StatelessWidget {
+  final Widget? child;
+  const WrappedDeviceFrame({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return DeviceFrame(
+      isFrameVisible: true,
+      device: Devices.ios.iPhone13ProMax,
+      screen: child ?? const SizedBox(),
     );
   }
 }
